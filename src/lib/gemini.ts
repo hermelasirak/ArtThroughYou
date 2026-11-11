@@ -4,6 +4,7 @@ type GeminiConfig = {
   responseMimeType?: string;
   responseModalities?: string[];
   temperature?: number;
+  maxOutputTokens?: number;
   imageConfig?: { aspectRatio?: string; imageSize?: string };
 };
 
