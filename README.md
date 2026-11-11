@@ -71,7 +71,7 @@ supabase/migrations/     Initial database schema
 - The archetypes are creative framing, not scientific personality classifications.
 - Results in three parts: artistic identity (archetype, character profile, matched era, core quality), the generated portrait with an explanation built from the answer-to-portrait mapping, and a five-card personal collection with an artwork for each chapter's choice, painted in the background during the journey.
 - Cloudflare-generated portrait, with a clearly labelled preview when the image service is unavailable or demo mode is on.
-- Optional photo: helps the portrait resemble the visitor (Stable Diffusion 1.5 img2img). The photo is centre-cropped and downsized in the browser, sent for that one request, and never stored.
+- Optional photo: helps the portrait resemble the visitor (FLUX.2 Klein with the photo as a reference image). The photo is centre-cropped and downsized in the browser, sent for that one request, and never stored.
 - Printable results page.
 - Local browser persistence and AI API endpoints.
 

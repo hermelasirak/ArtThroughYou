@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { generateCloudflareImage } from '@/lib/cloudflare-ai';
+import { generateCloudflareImageFromReference } from '@/lib/cloudflare-ai';
 
 export const runtime = 'nodejs';
 
@@ -14,11 +14,11 @@ const schema = z.object({
 export async function POST(req: Request) {
   try {
     const { prompt, photo } = schema.parse(await req.json());
-    const imageData = photo.slice(photo.indexOf(',') + 1);
-    const generated = await generateCloudflareImage('@cf/runwayml/stable-diffusion-v1-5-img2img', {
-      prompt: `${prompt} Keep the same person's face, age, skin tone and recognisable features as in the reference photo.`,
-      negative_prompt: 'text, letters, watermark, logo, extra faces, distorted anatomy, deformed hands',
-      image_b64: imageData, width: 512, height: 512, num_steps: 20, strength: 0.6, guidance: 7.5
+    const generated = await generateCloudflareImageFromReference('@cf/black-forest-labs/flux-2-klein-4b', {
+      prompt: `${prompt} Use the supplied photo as the visual identity reference: keep the same person's face, age, skin tone and recognisable features. No text, lettering, logos or watermarks.`,
+      imageBase64: photo.slice(photo.indexOf(',') + 1),
+      mimeType: photo.slice(5, photo.indexOf(';')),
+      width: 768, height: 768, guidance: 4
     });
     return NextResponse.json({ dataUrl: `data:${generated.mimeType || 'image/jpeg'};base64,${generated.image}` });
   } catch (e) {

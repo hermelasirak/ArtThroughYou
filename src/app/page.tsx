@@ -161,7 +161,7 @@ export default function Home() {
     const img = new Image();
     const objectUrl = URL.createObjectURL(file);
     img.onload = () => {
-      const size = 512, side = Math.min(img.width, img.height);
+      const size = 480, side = Math.min(img.width, img.height); // 480px suits FLUX.2 reference input
       const canvas = document.createElement('canvas'); canvas.width = canvas.height = size;
       canvas.getContext('2d')!.drawImage(img, (img.width - side) / 2, (img.height - side) / 2, side, side, 0, 0, size, size);
       URL.revokeObjectURL(objectUrl);
